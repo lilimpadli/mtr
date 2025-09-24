@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('content')
 <div class="card p-4 mx-auto" style="max-width:500px;">

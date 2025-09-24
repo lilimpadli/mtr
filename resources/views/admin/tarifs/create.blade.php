@@ -2,7 +2,7 @@
 
 @section('content')
 <h2>Tambah Tarif Rental</h2>
-<form action="{{ route('tarifs.store') }}" method="POST">
+<form action="{{ route('admin.tarifs.store') }}" method="POST">
   @csrf
   <div class="mb-3">
     <label>Motor</label>

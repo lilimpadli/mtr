@@ -49,13 +49,15 @@ Route::patch('/admin/motors/{id}/reject', [AdminMotorController::class, 'reject'
     Route::get('/admin/bookings', [AdminBookingController::class, 'index'])->name('admin.bookings.index');
     Route::post('/admin/bookings/{id}/confirm', [AdminBookingController::class, 'confirm'])->name('admin.bookings.confirm');
     Route::post('/admin/bookings/{id}/finish', [AdminBookingController::class, 'finish'])->name('admin.bookings.finish');
+
+    
 // Admin laporan
      Route::get('/admin/reports', [AdminReportController::class, 'index'])->name('admin.reports.index');
      Route::get('/admin/users/export/excel', [AdminUserController::class, 'exportExcel'])->name('admin.users.export.excel');
 Route::get('/admin/users/export/pdf', [AdminUserController::class, 'exportPdf'])->name('admin.users.export.pdf');
 Route::get('/admin/reports/export/excel', [AdminReportController::class, 'exportExcel'])->name('admin.reports.export.excel');
 Route::get('/admin/reports/export/pdf', [AdminReportController::class, 'exportPdf'])->name('admin.reports.export.pdf');
- Route::resource('admin/tarifs', AdminTarifController::class);
+ 
  Route::get('/admin/pembayaran', [AdminTransaksiController::class, 'index'])->name('admin.pembayaran.index');
     Route::get('/admin/pembayaran/{penyewaan}/create', [AdminTransaksiController::class, 'create'])->name('admin.pembayaran.create');
     Route::post('/admin/pembayaran/{penyewaan}', [AdminTransaksiController::class, 'store'])->name('admin.pembayaran.store');
@@ -80,7 +82,9 @@ Route::middleware(['auth','role:pemilik'])->group(function () {
 
 // Penyewa routes
 Route::middleware(['auth','role:penyewa'])->group(function () {
-    Route::get('/renter/dashboard', [RenterController::class, 'index']);
+    Route::get('/renter/dashboard', [RenterController::class, 'dashboard'])
+    ->name('renter.dashboard');
+
      // Booking
     Route::get('/renter/motors', [BookingController::class, 'index'])->name('renter.motors.index');
     Route::get('/renter/motors/{motor}/book', [BookingController::class, 'create'])->name('renter.bookings.create');
@@ -94,9 +98,9 @@ Route::middleware(['auth','role:penyewa'])->group(function () {
     Route::get('/renter/bookings/history', [BookingController::class, 'history'])->name('renter.bookings.history');
 });
 
-Route::get('/admin/users/export/excel', [AdminUserController::class, 'exportExcel'])->name('admin.users.export.excel');
-Route::get('/admin/users/export/pdf', [AdminUserController::class, 'exportPdf'])->name('admin.users.export.pdf');
-Route::get('/admin/reports/export/excel', [AdminReportController::class, 'exportExcel'])->name('admin.reports.export.excel');
-Route::get('/admin/reports/export/pdf', [AdminReportController::class, 'exportPdf'])->name('admin.reports.export.pdf');
 
+
+Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('tarifs', AdminTarifController::class);
+});
 
