@@ -233,10 +233,7 @@
               <i class="fas fa-calendar-check"></i>
               <span>Kelola Booking</span>
             </a>
-            <a href="{{ route('admin.reports.index') }}">
-              <i class="fas fa-chart-bar"></i>
-              <span>Laporan</span>
-            </a>
+           
           @elseif(Auth::user()->role == 'pemilik')
             <a href="/owner/dashboard" class="active">
               <i class="fas fa-tachometer-alt"></i>
